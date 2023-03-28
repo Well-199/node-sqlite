@@ -3,6 +3,8 @@ require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 
+const openDb = require('./src/config/connection')
+
 // Inicia o servidor
 const server = express()
 
@@ -21,3 +23,14 @@ server.use((req, res) => {
 server.listen(process.env.PORT, () => {
     console.log(`Server running on PORT ${process.env.BASE}`)
 })
+
+async function getData(){
+
+    const open = await openDb()
+
+    const result = await open.all('SELECT * FROM usuarios WHERE id=?', [2])
+    
+    console.log(result[0])
+}
+
+getData()
