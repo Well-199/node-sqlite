@@ -2,8 +2,7 @@ require('dotenv').config()
 
 const express = require('express')
 const cors = require('cors')
-
-const openDb = require('./src/config/connection')
+const routes = require('./src/routes/routes')
 
 // Inicia o servidor
 const server = express()
@@ -12,6 +11,8 @@ const server = express()
 server.use(cors())
 server.use(express.json())
 server.use(express.urlencoded({ extended: false }))
+
+server.use('/api', routes)
 
 // Caso houver erro retorna o 404
 server.use((req, res) => {
@@ -23,14 +24,3 @@ server.use((req, res) => {
 server.listen(process.env.PORT, () => {
     console.log(`Server running on PORT ${process.env.BASE}`)
 })
-
-async function getData(){
-
-    const open = await openDb()
-
-    const result = await open.all('SELECT * FROM usuarios WHERE id=?', [2])
-    
-    console.log(result[0])
-}
-
-getData()
