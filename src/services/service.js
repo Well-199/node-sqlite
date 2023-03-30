@@ -1,16 +1,22 @@
 const connection = require('../config/connection')
 
+let db = false
+// Inicia o banco de dados
+async function openDataBase() {
+    const database = await connection()
+    db = database
+}
+openDataBase()
+
 const Service = {
 
     // Busca um usuario pelo email
-    findByEmail: async (email) => {
-        const open = await connection()
-        const query = await open.all(`
-            SELECT * FROM usuarios WHERE email=?`, [email]
+    findByEmail: async () => {
+        const query = await db.all(`
+            SELECT * FROM usuarios`
         )
-        return query[0]
+        return query
     },
-
 
 }
 

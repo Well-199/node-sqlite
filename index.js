@@ -2,6 +2,8 @@ require('dotenv').config()
 
 const express = require('express')
 const cors = require('cors')
+const path = require('path')
+const mustache = require('mustache-express')
 const routes = require('./src/routes/routes')
 
 // Inicia o servidor
@@ -12,12 +14,16 @@ server.use(cors())
 server.use(express.json())
 server.use(express.urlencoded({ extended: false }))
 
-server.use('/api', routes)
+// Configura que vai renderizar as telas do sistema
+server.set('view engine', 'mustache')
+server.set('views', path.join(__dirname, './src/views'))
+server.engine('mustache', mustache())
+
+server.use(routes)
 
 // Caso houver erro retorna o 404
 server.use((req, res) => {
-    res.status(404)
-    res.json({ message: 'url não encontrada' })
+    res.status(404).send('Página não encontrada')
 })
 
 // PORTA a onde o servidor esta rodando

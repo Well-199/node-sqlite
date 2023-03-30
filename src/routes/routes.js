@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
-const Controller = require('../controllers/controller')
+const HomeController = require('../controllers/homeController')
 
-router.get('/email/:email', Controller.findByEmailUser)
+router.get('/', HomeController.home)
 
 module.exports = router
