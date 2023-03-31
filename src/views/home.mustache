@@ -4,11 +4,17 @@
     <!---- Tags Meta ---------->
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta charset="utf-8">
-    <title>Cálculo de Recisão</title>
+    <link rel="stylesheet" type="text/css" href="../../styles/home.css" />
+    <title>Home</title>
 </head>
 <body>
-
-    <h1>Ola Mundo!</h1>
-
+    <h1>Home</h1>
+    <p>{{ token }}</p>
+    <form method="POST" action="/sair">
+        <input type="hidden" name="token" value="{{token}}" />
+        <button class="submit" id="submit">SAIR</button>
+    </form>
 </body>
 </html>
+
+<script src="../../scripts/script.js"></script>

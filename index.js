@@ -9,10 +9,11 @@ const routes = require('./src/routes/routes')
 // Inicia o servidor
 const server = express()
 
-// Configuraçoes de CORS e JSON
 server.use(cors())
 server.use(express.json())
-server.use(express.urlencoded({ extended: false }))
+server.use(express.urlencoded({ extended: true }))
+
+server.use(express.static(path.join(__dirname, 'public')))
 
 // Configura que vai renderizar as telas do sistema
 server.set('view engine', 'mustache')
@@ -23,7 +24,7 @@ server.use(routes)
 
 // Caso houver erro retorna o 404
 server.use((req, res) => {
-    res.status(404).send('Página não encontrada')
+    res.status(404).render('404')
 })
 
 // PORTA a onde o servidor esta rodando
